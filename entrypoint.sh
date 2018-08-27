@@ -45,10 +45,13 @@ if [ "$backend"x == "ldap"x ]; then
     ldapUrl=${LDAP_URL:-ldap://DRNGSL.LOCAL:389}
     ldapDomain=${LDAP_DOMAIN:-drngsl.local}
     ldapBaseDn=${LDAP_BASEDN:-ou=UserOU,dc=DRNGSL,dc=LOCAL}
-    echo "$ldapUrl $ldapDomain $ldapBaseDn"
     updateConf "ldap.url" "$ldapUrl" "${casPropFile}"
     updateConf "ldap.domain" "$ldapDomain" "${casPropFile}"
     updateConf "ldap.baseDn" "$ldapBaseDn" "${casPropFile}"
+    ldapIp=${LDAP_IP}
+    if [[ "$ldapIp"x != ""x && `grep "$ldapDomain" /etc/hosts | wc -l` -eq 0 ]]; then
+        echo "$ldapIp $ldapDomain" >> /etc/hosts
+    fi
 fi
 
 # start tomcat
