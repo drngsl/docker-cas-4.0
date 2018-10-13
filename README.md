@@ -4,7 +4,7 @@ docker-cas-4.0
 ###build docker cas-4.0 image
 >docker build -t cas4 .
 
-###run samba4
+###run cas
 
 * default
 >docker run -d -p 9999:8080 cas4
